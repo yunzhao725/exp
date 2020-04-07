@@ -1,0 +1,9 @@
+/.settings
+/.idea
+/.iml
+/.classpath
+/.project
+/.bin
+/*.class
+
+/deploy/
