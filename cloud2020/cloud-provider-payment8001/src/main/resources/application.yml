@@ -1,0 +1,45 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #serverTimezone=GMT%2B8需要带时区 不然会报错 设置时区为东8 北京时间
+    url: jdbc:mysql://localhost:3306/db2019?useUnicode=true&charaterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+
+mybatis:
+  #添加classpatch会导致无法找到映射文件
+  #mapperLocations: classpatch:mapper/PaymentMapper.xml
+  mapperLocations: mapper/*.xml
+  type-aliases-package: com.exp.springcloud.entities
+
+#注册到注册中心
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      #要先启动erueka 在启动客户端
+      defaultZone: http://eureka7001.com:7001/eureka #,http://eureka7002.com:7002/eureka
+  #注册到eureka的名称
+  instance:
+    #eureka 显示服务名称
+        instance-id: payment8001
+        #eureka 显示ip
+        prefer-ip-address: true
+        #默认心跳30秒 单位：秒
+        lease-renewal-interval-in-seconds: 1
+        #服务端收到最后一次心跳后等待时间上限 单位为秒 默认90秒 超时踢出服务
+        lease-expiration-duration-in-seconds: 2
+
+
+
+

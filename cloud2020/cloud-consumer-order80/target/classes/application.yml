@@ -1,0 +1,18 @@
+server:
+  #80为默认端口直接输入地址不需要80
+  port: 80
+
+spring:
+  application:
+    name: cloud-order-service
+
+#注册到注册中心
+eureka:
+  client:
+    #false表示不向注册中心注册自己
+    register-with-eureka: true
+    #false表示自己端就是注册中心,我的职责就是维护服务实例,并不需要检索服务
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.exp.springcloud</groupId>
+  <artifactId>cloud2020</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>cloud-provider-payment8001</module>
+    <module>cloud-consumer-order80</module>
+    <module>cloud-api-commons</module>
+      <module>cloud-eureka-server7001</module>
+      <module>cloud-eureka-server7002</module>
+      <module>cloud-provider-payment8002</module>
+  </modules>
+
+
+  <!--统一管理jar包版本-->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <junit.version>4.12</junit.version>
+    <log4j.version>1.2.17</log4j.version>
+    <lombok.version>1.16.18</lombok.version>
+    <mysql.version>8.0.18</mysql.version>
+    <druid.version>1.1.16</druid.version>
+    <druid.spring.boot.starter.version>1.1.10</druid.spring.boot.starter.version>
+    <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
+    <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
+    <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
+    <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
+    <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
+    <hutool-all.version>5.1.0</hutool-all.version>
+  </properties>
+
+
+  <!--
+  dependencyManagement:
+  maven使用dependencyManagement元素来提供一种管理依赖版本号的方式，
+  通常会在一个项目最顶层的父pom中，可以让子项目中引用的依赖而不用显示的列出版本号，
+  maven会沿着父子层次向上走，知道找到一个拥有dependencyManagement元素的项目，
+  然后它就会使用这个dependencyManagement元素中指定的版本号。
+  便于后续版本升级管理，只需要在父pom中修改即可。能够复用父pom的就用，不能复用那么自己定义版本。
+  只声明依赖，并不实现引入，因此子项目需要显示的声明需要用的依赖。
+  如果不在子项目中声明依赖，是不会从父pom中继承下来，只有在子项目中写了该依赖项，并且没有指定具体版本，
+  才会从父pom中继承该项，并且version和scope都读自父pom（如果子项目指定了版本号，那么会使用子项目中的指定jar版本）
+
+  dependencies:
+  引入
+  -->
+
+  <!--子模块继承之后，提供作用：锁定版本+子modlue不用在写groupid和version-->
+  <dependencyManagement>
+    <dependencies>
+      <!--springboot 2.2.2-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--Spring cloud Hoxton.SR1-->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring.cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!--Spring cloud alibaba 2.1.0.RELEASE-->
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+        <version>${spring.cloud.alibaba.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid.spring.boot.starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <fork>true</fork>
+          <addResources>true</addResources>
+        </configuration>
+
+      </plugin>
+    </plugins>
+
+
+  </build>
+
+</project>
